@@ -1,0 +1,244 @@
+$transition-time: .5s;
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .3;
+  }
+  90% {
+    opacity: 1;
+  }
+}
+
+@keyframes blinkLighter {
+  0% {
+    opacity: .6;
+  }
+  10% {
+    opacity: .6;
+  }
+  50% {
+    opacity: .2;
+  }
+  90% {
+    opacity: .6;
+  }
+}
+
+.guess-graph {
+  touch-action: none;
+  .mobile {
+    display: none;
+  }
+  
+  .chart {
+    font-family: Roboto, sans-serif;
+    width: 100%;
+    height: 500px;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+  
+    .opener {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      text-align: center;
+      line-height: 1.1em;
+      position: absolute;
+      opacity: 1;
+      .text {
+        max-width: 400px;
+      }
+    }
+        
+    .results-flag {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: white;
+      box-sizing: border-box;
+      padding: 26px;
+      font-size: 25px;
+      font-weight: bold;
+      transition: 1s opacity;
+      opacity: .8;
+      overflow: hidden;
+      
+      &.hidden {
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 0 !important;
+        opacity: 0;
+      }
+    } 
+       
+
+    svg g {
+      touch-action: none;
+    }
+    /*    
+    &.dim svg g * {
+      opacity: 0;
+      transition: all .5s;
+    }
+    */
+    .mouseRect {
+      opacity: 1;
+      fill: #fafafa;
+      transition: $transition-time all;
+    }
+    
+    &.dim .mouseRect {
+      fill: #ffffff;
+    }
+  
+    .tick {
+      font-size: 14px;
+      fill: #999;
+    }
+
+    .y.axis .tick text, .x.axis .tick text {
+      font-weight: normal;
+      fill: #666;
+      font-size: 13px;
+    }
+
+    .x.axis path {
+      display: none;
+    }
+
+    .x.axis line {
+      stroke-dasharray:1,1;
+      transition: $transition-time all;
+      stroke-width: 1px;
+      shape-rendering: crispedges;
+    }
+    
+    &.dim .x.axis line {
+      opacity: 0;
+    }
+
+    .y.axis line {
+      fill: #666;
+      stroke-width: 1px;
+    }
+
+    .y.axis path {
+      display: none;
+    }
+
+    .tick:first-of-type {
+      // display: none;
+    }
+    
+    .label {
+      font-size: 15px;
+      fill: #666;
+    }
+    
+    .borderline, &.dim .borderline {
+      stroke-width: 1px;
+      stroke: #999;
+      opacity: 1;
+    }
+
+    .borderline.bottom {
+      stroke: #333;
+    }
+    
+    .dot {
+      fill: #fafafa;
+      stroke: #EE2A24;
+      stroke-width: 3;
+    
+      &.first.dot {
+        r: 10px;
+        stroke-width: 10px;
+      }
+      
+      &.first.blinking {
+        animation: blink 1s infinite;
+      }
+      
+      &.hidden {
+        transition: all $transition-time;
+        opacity: 0;
+      }
+    } 
+    
+    .userLine, .realLine {
+      fill: none;
+      stroke: #ddd;
+      stroke-width:3px;
+      stroke-dasharray: 3,3;
+    }
+
+    .userLine {
+      stroke: #EE2A24;
+      
+      &.filled {
+        stroke-dasharray: 0;
+        transition: all .5s;
+      }
+      
+      &.hidden {
+        transition: opacity $transition-time;
+        opacity: 0;
+      }
+    }
+    
+    .realLine {
+      stroke: purple;
+      stroke-width: 10px;
+    }
+
+    .finishLine {
+      stroke: #EE2A24;
+      stroke-width: 8px;
+      opacity: 0!important;
+ 
+      &.blinking {
+        animation: blinkLighter 1s infinite;
+        opacity: .6!important;
+      }
+    }
+    
+    .in-chart-label {
+      font-size: 15px;
+      font-weight: bold;
+
+      &.real {
+        fill: purple;  
+      }
+
+      &.guess {
+        fill: #EE2A24;  
+      }
+    }
+
+    @media screen and (max-width: 600px){
+      .desktop {
+        display: none;
+      }
+      
+      .mobile {
+        display: block;
+      }
+      
+      .opener {
+        font-size: 20px;
+      }
+    }        
+  }
+}
